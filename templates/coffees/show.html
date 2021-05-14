@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+
+{% if perms.coffees.change_coffee %}
+<a href="{% url 'coffees:edit' coffee.id %}"
+   class="btn btn-outline-info float-right mr-2">
+    更新
+</a>
+{% endif %}
+
+{% if perms.coffees.delete_coffee %}
+<a href="{% url 'coffees:delete' coffee.id %}"
+   class="btn btn-outline-danger float-right mr-2">
+    刪除
+</a>
+{% endif %}
+
+<h2>#{{ coffee.id }} {{ coffee.name }}</h2>
+<hr>
+<p>名稱: {{ coffee.name }}</p>
+<p>描述: {{ coffee.description }}</p>
+<p>烘培程度: {{ coffee.get_roast_display }}</p>
+<p>價格: {{ coffee.price }}</p>
+<p>產地: {{ coffee.origin_place }}</p>
+<p>標籤: {{ coffee.tags.all | join:', ' }}</p>
+
+<a href="{% url 'coffees:index' %}" class="btn btn-primary"><< 返回</a>
+{% endblock %}
